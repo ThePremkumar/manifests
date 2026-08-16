@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/ThePremkumar/manifests.git
     targetRevision: HEAD
-    path: .
+    path: ./cd/
 
   destination:
     server: https://kubernetes.default.svc
