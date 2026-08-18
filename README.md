@@ -21,6 +21,13 @@ The application is exposed to the internet using an **AWS Application Load Balan
 
 ---
 
+## 🔗 Related Repositories
+
+* **Continuous Integration (CI) / Source Code**: [ThePremkumar/moodscape](https://github.com/ThePremkumar/moodscape)
+  Contains the application source code for the FastAPI backend and frontend, as well as the workflows responsible for building the container images and publishing them to AWS ECR.
+
+---
+
 ## 📂 Repository Structure
 
 * `application.yaml`: The core ArgoCD Application definition linking this repository to the cluster.
@@ -55,3 +62,70 @@ kubectl apply -f application.yaml
 ## 🔒 Security & Access
 
 The ArgoCD repository secret is securely defined in `application.yaml` to authenticate with GitHub. Ensure that your AWS credentials, Kubernetes RBAC, and repository access tokens are securely managed and rotated according to best practices.
+
+---
+
+## 📸 Infrastructure & Deployment Gallery
+
+The following screenshots illustrate the complete CI/CD lifecycle, from Jenkins pipelines and AWS ECR to the ArgoCD deployment synchronization on our EKS cluster.
+
+<details>
+<summary>Click to view detailed infrastructure screenshots</summary>
+
+<br>
+
+### Continuous Integration (CI)
+**1. Jenkins CI Pipeline**
+![Jenkins Pipeline](screenshots/Screenshot%202026-08-18%20080619.png)
+*The Jenkins pipeline successfully building the application, pushing images to ECR, and automatically updating the Kubernetes manifests in this repository.*
+
+**2. GitHub Manifests Repository**
+![GitHub Manifests](screenshots/Screenshot%202026-08-18%20080243.png)
+*Automated commit to the `cd` directory updating the deployment image tag to `v17`.*
+
+---
+
+### Container Registry (AWS ECR)
+**3. AWS ECR - Backend Repository**
+![ECR Backend](screenshots/Screenshot%202026-08-18%20080322.png)
+*The `moodscape-backend` Docker images securely stored in Amazon Elastic Container Registry.*
+
+**4. AWS ECR - Frontend Repository**
+![ECR Frontend](screenshots/Screenshot%202026-08-18%20080345.png)
+*The `moodscape-frontend` Docker images stored and ready for deployment.*
+
+---
+
+### Continuous Deployment (ArgoCD)
+**5. ArgoCD - Initial Sync (Failure Recovery)**
+![ArgoCD Initial Sync](screenshots/Screenshot%202026-08-16%20194036.png)
+*ArgoCD tree view showing an initial deployment state, demonstrating visibility into pod failures (e.g., CrashLoopBackOff) before self-healing.*
+
+**6. ArgoCD - Healthy Deployment**
+![ArgoCD Healthy](screenshots/Screenshot%202026-08-18%20072026.png)
+*A fully healthy and synchronized state where all frontend and backend pods are running successfully.*
+
+**7. ArgoCD - Pod Details**
+![ArgoCD Pod Details](screenshots/Screenshot%202026-08-18%20073406.png)
+*Detailed view of a running backend pod, confirming the successful pull and execution of the specific image tag.*
+
+**8. ArgoCD - Rolling Update**
+![ArgoCD Rolling Update](screenshots/Screenshot%202026-08-18%20080127.png)
+*ArgoCD managing a rolling update, cleanly spinning up a new ReplicaSet while terminating the old one to ensure zero downtime.*
+
+**9. ArgoCD - Sync Status**
+![ArgoCD Sync Status](screenshots/Screenshot%202026-08-18%20080145.png)
+*The main ArgoCD dashboard confirming the application is perfectly synced to the `HEAD` of the main branch following an image update.*
+
+**10. ArgoCD - Full Application Tree**
+![ArgoCD Full Tree](screenshots/Screenshot%202026-08-18%20080204.png)
+*A comprehensive view of the entire Moodscape application architecture (Services, Deployments, ReplicaSets, and Pods) managed by ArgoCD.*
+
+---
+
+### Cloud Infrastructure (AWS EKS)
+**11. Amazon EKS Cluster**
+![EKS Cluster](screenshots/Screenshot%202026-08-18%20080706.png)
+*The `moodscape-cluster` running smoothly on Amazon Elastic Kubernetes Service (EKS), acting as the foundation for the entire deployment.*
+
+</details>
