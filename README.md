@@ -69,10 +69,8 @@ The ArgoCD repository secret is securely defined in `application.yaml` to authen
 
 The following screenshots illustrate the complete CI/CD lifecycle, from Jenkins pipelines and AWS ECR to the ArgoCD deployment synchronization on our EKS cluster.
 
-<details>
-<summary>Click to view detailed infrastructure screenshots</summary>
 
-<br>
+
 
 ### Continuous Integration (CI)
 **1. Jenkins CI Pipeline**
@@ -128,4 +126,3 @@ The following screenshots illustrate the complete CI/CD lifecycle, from Jenkins 
 ![EKS Cluster](screenshots/Screenshot%202026-08-18%20080706.png)
 *The `moodscape-cluster` running smoothly on Amazon Elastic Kubernetes Service (EKS), acting as the foundation for the entire deployment.*
 
-</details>
