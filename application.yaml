@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ThePremkumar/manifests.git
-    targetRevision: HEAD
-    path: ./cd/
+    targetRevision: main
+    path: cd
 
   destination:
     server: https://kubernetes.default.svc
@@ -21,3 +21,24 @@ spec:
     automated:
       selfHeal: true
       prune: true
+    
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: manifests-repo-creds
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: https://github.com/ThePremkumar/manifests.git
+  username: ThePremkumar
+  password: ghp_YourActualGitHubTokenGoesHere
