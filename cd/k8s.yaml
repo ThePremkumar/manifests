@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: moodscape-frontend
-          image: 271443695250.dkr.ecr.us-east-1.amazonaws.com/moodscape-frontend:v1
+          image: 271443695250.dkr.ecr.us-east-1.amazonaws.com/moodscape-frontend:v14
           ports:
             - containerPort: 80
           readinessProbe:
@@ -68,7 +68,7 @@ spec:
     spec:
       containers:
         - name: moodscape-backend
-          image: 271443695250.dkr.ecr.us-east-1.amazonaws.com/moodscape-backend:v1
+          image: 271443695250.dkr.ecr.us-east-1.amazonaws.com/moodscape-backend:v14
           ports:
             - containerPort: 8000
           readinessProbe:
